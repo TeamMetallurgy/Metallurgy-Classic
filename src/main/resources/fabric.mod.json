@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "metallurgyclassic",
+  "version": "${version}",
+
+  "name": "Metallurgy Classic",
+  "description": "All the metals",
+  "authors": [
+    "RebelKeithy",
+    "Shadowclaimer"
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": ""
+  },
+
+  "license": "MIT",
+  "icon": "assets/metallurgyclassic/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.teammetallurgy.metallurgyclassic.MetallurgyClassic"
+    ]
+  },
+
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.17.x",
+    "java": ">=16"
+  }
+}

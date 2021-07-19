@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "tin_ingot",
+  "ingredients": [
+    {
+      "item": "metallurgyclassic:tin_bricks"
+    }
+  ],
+  "result": {
+    "item": "metallurgyclassic:tin_ingot",
+    "count": 4
+  }
+}
