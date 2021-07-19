@@ -34,5 +34,8 @@ public class MetallurgyClassic implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID, "raw_tin"), RAW_TIN);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID, "tin_dust"), TIN_DUST);
 		Registry.register(Registry.ITEM, new Identifier(MOD_ID, "tin_ingot"), TIN_INGOT);
+
+		var tinOreGenConfig = new MetallurgyOreConfig(TIN_ORE).size(16).amount(20).density(0.5f).minHeight(0).maxHeight(64);
+		MetallurgyOreGeneration.register(tinOreGenConfig);
 	}
 }
