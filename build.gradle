@@ -31,6 +31,46 @@ dependencies {
 	// You may need to force-disable transitiveness on them.
 }
 
+task generateTemplates {
+	inputs.property "modid", project.mod_identifier
+
+	def metals = ['silver']
+	def catalysts = ['tin']
+	def alloys = ['bronze']
+
+	def ores = metals + catalysts
+	def items = metals + catalysts + alloys
+	def tools = metals + alloys
+
+	// ORE
+	ores.each { metal_name ->
+		copy {
+			from "$projectDir/src/main/templates"
+			include "**/*\${ore}*.json"
+			into "$buildDir/resources/main/"
+			expand "modid": project.mod_identifier, "metal": metal_name, "ore": metal_name
+			rename { String filename ->
+				filename.replace("\${ore}", metal_name)
+			}
+		}
+	}
+
+	// METALS
+	items.each { metal_name ->
+		copy {
+			from "$projectDir/src/main/templates"
+			include "**/*\${metal}*.json"
+			into "$buildDir/resources/main/"
+			expand "modid": project.mod_identifier, "metal": metal_name, "ore": metal_name
+			rename { String filename ->
+				filename.replace("\${metal}", metal_name)
+			}
+		}
+	}
+
+	// TOOLS: TODO
+}
+
 processResources {
 	inputs.property "version", project.version
 

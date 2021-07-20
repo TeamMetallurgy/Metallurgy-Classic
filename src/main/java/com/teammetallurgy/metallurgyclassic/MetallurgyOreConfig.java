@@ -12,9 +12,9 @@ public class MetallurgyOreConfig {
     public int minHeight;
     public int maxHeight;
 
-    public MetallurgyOreConfig(Block ore) {
+    public MetallurgyOreConfig(Block ore, String name) {
         this.ore = ore.getDefaultState();
-        this.name = ore.getName().asString();
+        this.name = name;
     }
 
     public MetallurgyOreConfig size(int size) {

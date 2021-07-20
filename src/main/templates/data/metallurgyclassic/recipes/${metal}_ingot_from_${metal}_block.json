@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "${metal}_ingot",
+  "ingredients": [
+    {
+      "item": "${modid}:${metal}_block"
+    }
+  ],
+  "result": {
+    "item": "${modid}:${metal}_ingot",
+    "count": 9
+  }
+}
