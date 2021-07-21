@@ -2,7 +2,6 @@ package com.teammetallurgy.metallurgyclassic;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
@@ -21,7 +20,7 @@ import java.util.Map;
 public class MetallurgyOreGeneration {
     public static Map<BlockState, Float> densityMap = new HashMap<>();
 
-    public static void register(MetallurgyMetalConfig config, BlockState ore) {
+    public static void register(MetalConfig config, BlockState ore) {
         var feature = Feature.ORE
                 .configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, ore, config.oresPerVein))
                 .range(new RangeDecoratorConfig(UniformHeightProvider.create(YOffset.aboveBottom(config.minLevel), YOffset.fixed(config.maxLevel))))

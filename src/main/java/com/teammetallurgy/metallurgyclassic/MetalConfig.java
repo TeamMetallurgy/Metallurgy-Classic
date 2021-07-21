@@ -2,7 +2,7 @@ package com.teammetallurgy.metallurgyclassic;
 
 import net.minecraft.util.Pair;
 
-public class MetallurgyMetalConfig {
+public class MetalConfig {
     public enum MetalSet {
         BASE,
         PRECIOUS,
