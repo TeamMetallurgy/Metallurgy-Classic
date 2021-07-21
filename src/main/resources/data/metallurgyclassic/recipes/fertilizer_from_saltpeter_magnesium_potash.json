@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "metallurgyclassic:raw_saltpeter"
+    },
+    {
+      "item": "metallurgyclassic:raw_magnesium"
+    },
+    {
+      "item": "metallurgyclassic:raw_potash"
+    }
+  ],
+  "result": {
+    "item": "metallurgyclassic:fertilizer"
+  }
+}

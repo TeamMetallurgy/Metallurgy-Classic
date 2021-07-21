@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:piston"
+    },
+    "X": {
+      "item": "metallurgyclassic:tar"
+    }
+  },
+  "result": {
+    "item": "minecraft:sticky_piston"
+  }
+}
