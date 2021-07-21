@@ -35,11 +35,11 @@ task generateTemplates {
 	inputs.property "modid", project.mod_identifier
 
 	def utilities = ['sulfur', 'phosphorite', 'saltpeter', 'magnesium', 'bitumen', 'potash']
-	def metals = ['silver', 'platinum', 'ignatius', 'shadow_iron', 'lemurite', 'midasium', 'vyroxeres', 'ceruclase', 'kalendrite', 'vulcanite', 'sanguinite', 'prometheum', 'deep_iron', 'oureclase', 'astral_silver', 'carmot', 'mithril', 'orichalcum', 'adamantine', 'atlarus', 'eximite', 'meutoite']
-	def catalysts = ['tin', 'manganese', 'zinc', 'lemurite', 'alduorite', 'infuscolium', 'rubracium']
+	def metals = ['silver', 'platinum', 'ignatius', 'shadow_iron', 'midasium', 'vyroxeres', 'ceruclase', 'kalendrite', 'vulcanite', 'sanguinite', 'prometheum', 'deep_iron', 'oureclase', 'astral_silver', 'carmot', 'mithril', 'orichalcum', 'adamantine', 'atlarus', 'eximite']
+	def catalysts = ['tin', 'manganese', 'zinc', 'lemurite', 'lemurite', 'alduorite', 'infuscolium', 'rubracium', 'meutoite']
 	def alloys = ['bronze', 'hepatizon', 'damascus_steel', 'angmallen', 'steel', 'brass', 'electrum', 'shadow_steel', 'inolashite', 'amordrine', 'black_steel', 'quicksilver', 'haderoth', 'celenegil', 'tartarite', 'desichalkos']
 
-	def ores = metals + catalysts + utilities
+	def ores = metals + catalysts
 	def items = metals + catalysts + alloys
 	def tools = metals + alloys
 
@@ -78,6 +78,19 @@ task generateTemplates {
 			expand "modid": project.mod_identifier, "tool": metal_name
 			rename { String filename ->
 				filename.replace("\${tool}", metal_name)
+			}
+		}
+	}
+
+	// UTILITY
+	utilities.each { metal_name ->
+		copy {
+			from "$projectDir/src/main/templates"
+			include "**/*\${utility}*.json"
+			into "$buildDir/resources/main/"
+			expand "modid": project.mod_identifier, "utility": metal_name
+			rename { String filename ->
+				filename.replace("\${utility}", metal_name)
 			}
 		}
 	}

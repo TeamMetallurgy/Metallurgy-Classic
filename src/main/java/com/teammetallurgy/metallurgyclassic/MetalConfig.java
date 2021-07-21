@@ -63,6 +63,8 @@ public class MetalConfig {
         public boolean hasOre() {
             return this == ORE || this == CATALYST || this == UTILITY;
         }
+
+        public boolean hasIngot() { return this != UTILITY; }
     }
 
     public String name;
