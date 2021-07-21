@@ -21,19 +21,19 @@ import java.util.Map;
 public class MetallurgyOreGeneration {
     public static Map<BlockState, Float> densityMap = new HashMap<>();
 
-    public static void register(MetallurgyOreConfig config) {
+    public static void register(MetallurgyMetalConfig config, BlockState ore) {
         var feature = Feature.ORE
-                .configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, config.ore, config.size))
-                .range(new RangeDecoratorConfig(UniformHeightProvider.create(YOffset.aboveBottom(config.minHeight), YOffset.fixed(config.maxHeight))))
+                .configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, ore, config.oresPerVein))
+                .range(new RangeDecoratorConfig(UniformHeightProvider.create(YOffset.aboveBottom(config.minLevel), YOffset.fixed(config.maxLevel))))
                 .spreadHorizontally()
-                .repeat(config.size);
+                .repeat(config.veinsPerChunk);
 
         String path = "ore_overworld_" + MetallurgyClassic.MOD_ID + config.name;
         var featureKey = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier(MetallurgyClassic.MOD_ID, path));
 
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, featureKey.getValue(), feature);
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, featureKey);
-        densityMap.put(config.ore, config.density);
+        //densityMap.put(ore, config.density); // Metallurgy 3 only had 100% dense ores by default
     }
 
     public static float getDensity(BlockState ore) {
