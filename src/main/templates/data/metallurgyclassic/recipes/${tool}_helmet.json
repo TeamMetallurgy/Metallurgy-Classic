@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "${modid}:${tool}_ingot"
+    }
+  },
+  "result": {
+    "item": "${modid}:${tool}_helmet"
+  }
+}

@@ -1,4 +1,4 @@
-package com.teammetallurgy.metallurgyclassic;
+package com.teammetallurgy.metallurgyclassic.materials;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ToolMaterial;

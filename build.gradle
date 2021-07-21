@@ -70,7 +70,7 @@ task generateTemplates {
 	}
 
 	// TOOLS:
-	items.each { metal_name ->
+	tools.each { metal_name ->
 		copy {
 			from "$projectDir/src/main/templates"
 			include "**/*\${tool}*.json"

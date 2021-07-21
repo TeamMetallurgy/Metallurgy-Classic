@@ -1,15 +1,18 @@
 package com.teammetallurgy.metallurgyclassic;
 
+import com.teammetallurgy.metallurgyclassic.materials.MetallurgyArmorMaterial;
+import com.teammetallurgy.metallurgyclassic.materials.MetallurgyToolMaterial;
+import com.teammetallurgy.metallurgyclassic.tools.MetallurgyAxeItem;
+import com.teammetallurgy.metallurgyclassic.tools.MetallurgyHoeItem;
+import com.teammetallurgy.metallurgyclassic.tools.MetallurgyPickaxeItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.block.OreBlock;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ShovelItem;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.minecraft.util.registry.Registry;
@@ -145,8 +148,33 @@ public class MetalRegistry {
 
         if(config.type.hasTools()) {
             Item shovel = new ShovelItem(new MetallurgyToolMaterial(config.toolDurability, config.toolSpeed, config.toolDamage, config.pickLevel, config.enchantability, ingot), config.toolDamage, config.toolSpeed, new Item.Settings().group(ItemGroup.TOOLS));
+            Item hoe = new MetallurgyHoeItem(new MetallurgyToolMaterial(config.toolDurability, config.toolSpeed, config.toolDamage, config.pickLevel, config.enchantability, ingot), config.toolDamage, config.toolSpeed, new Item.Settings().group(ItemGroup.TOOLS));
+            Item axe = new MetallurgyAxeItem(new MetallurgyToolMaterial(config.toolDurability, config.toolSpeed, config.toolDamage, config.pickLevel, config.enchantability, ingot), config.toolDamage, config.toolSpeed, new Item.Settings().group(ItemGroup.TOOLS));
+            Item pickaxe = new MetallurgyPickaxeItem(new MetallurgyToolMaterial(config.toolDurability, config.toolSpeed, config.toolDamage, config.pickLevel, config.enchantability, ingot), config.toolDamage, config.toolSpeed, new Item.Settings().group(ItemGroup.TOOLS));
+            Item sword = new SwordItem(new MetallurgyToolMaterial(config.toolDurability, config.toolSpeed, config.toolDamage, config.pickLevel, config.enchantability, ingot), config.toolDamage, config.toolSpeed, new Item.Settings().group(ItemGroup.COMBAT));
+            var armorMaterial = new MetallurgyArmorMaterial(config.name, config.armorDurability, new int[]{config.helmetArmor, config.chestplateArmor, config.leggingsArmor, config.bootsArmor}, config.enchantability, 0f, ingot);
+            Item helmet = new ArmorItem(armorMaterial, EquipmentSlot.HEAD, new Item.Settings().group(ItemGroup.COMBAT));
+            Item chestplate = new ArmorItem(armorMaterial, EquipmentSlot.CHEST, new Item.Settings().group(ItemGroup.COMBAT));
+            Item leggings = new ArmorItem(armorMaterial, EquipmentSlot.LEGS, new Item.Settings().group(ItemGroup.COMBAT));
+            Item boots = new ArmorItem(armorMaterial, EquipmentSlot.FEET, new Item.Settings().group(ItemGroup.COMBAT));
             Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, config.name + "_shovel"), shovel);
+            Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, config.name + "_sword"), sword);
+            Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, config.name + "_hoe"), hoe);
+            Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, config.name + "_axe"), axe);
+            Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, config.name + "_pickaxe"), pickaxe);
+            Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, config.name + "_helmet"), helmet);
+            Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, config.name + "_chestplate"), chestplate);
+            Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, config.name + "_leggings"), leggings);
+            Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, config.name + "_boots"), boots);
             entry.items.put(Constants.ItemShovel, shovel);
+            entry.items.put(Constants.ItemSword, sword);
+            entry.items.put(Constants.ItemHoe, hoe);
+            entry.items.put(Constants.ItemAxe, axe);
+            entry.items.put(Constants.ItemPickaxe, pickaxe);
+            entry.items.put(Constants.ItemHelmet, helmet);
+            entry.items.put(Constants.ItemChestplate, chestplate);
+            entry.items.put(Constants.ItemLeggings, leggings);
+            entry.items.put(Constants.ItemBoots, boots);
         }
         registry.put(config.name, entry);
     }
