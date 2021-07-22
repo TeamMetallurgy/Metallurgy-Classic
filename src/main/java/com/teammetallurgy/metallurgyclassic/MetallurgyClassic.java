@@ -1,42 +1,32 @@
 package com.teammetallurgy.metallurgyclassic;
 
-import com.teammetallurgy.metallurgyclassic.items.IgniterItem;
+import com.teammetallurgy.metallurgyclassic.blocks.MetallurgyBlocks;
+import com.teammetallurgy.metallurgyclassic.entity.CustomizableTntEntity;
+import com.teammetallurgy.metallurgyclassic.items.MetallurgyItems;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.block.Block;
-import net.minecraft.block.Material;
-import net.minecraft.block.OreBlock;
-import net.minecraft.item.*;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Pair;
 import net.minecraft.util.registry.Registry;
-import org.lwjgl.system.CallbackI;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class MetallurgyClassic implements ModInitializer {
 	public static final String MOD_ID = "metallurgyclassic";
 
+	public static final EntityType<CustomizableTntEntity> TNT_ENTITY_TYPE = Registry.register(
+			Registry.ENTITY_TYPE,
+			new Identifier("metallurgyclassic", "metal_tnt"),
+			FabricEntityTypeBuilder.<CustomizableTntEntity>create(SpawnGroup.MISC, CustomizableTntEntity::new).build()
+	);
+
 	@Override
 	public void onInitialize() {
 		MetalRegistry.instance().parseCSV("/metals_data.csv");
+		MetallurgyBlocks.initialize();
+		MetallurgyItems.initialize();
+	}
 
-		var magnesium_igniter = new IgniterItem(new FabricItemSettings().maxDamage(256).group(ItemGroup.TOOLS));
-		var match = new IgniterItem(new FabricItemSettings().maxDamage(1).group(ItemGroup.TOOLS));
-		var tar = new Item(new FabricItemSettings().group(ItemGroup.MISC));
-		var fertilizer = new BoneMealItem(new FabricItemSettings().group(ItemGroup.MISC));
-		Registry.register(Registry.ITEM, new Identifier(MOD_ID, "match"), match);
-		Registry.register(Registry.ITEM, new Identifier(MOD_ID, "magnesium_igniter"), magnesium_igniter);
-		Registry.register(Registry.ITEM, new Identifier(MOD_ID, "tar"), tar);
-		Registry.register(Registry.ITEM, new Identifier(MOD_ID, "fertilizer"), fertilizer);
+	public static Identifier id(String name) {
+		return new Identifier(MOD_ID, name);
 	}
 }

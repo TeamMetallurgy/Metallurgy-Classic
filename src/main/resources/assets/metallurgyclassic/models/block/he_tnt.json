@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "metallurgyclassic:block/he_tnt_top",
+    "bottom": "metallurgyclassic:block/he_tnt_bottom",
+    "side": "metallurgyclassic:block/he_tnt_side"
+  }
+}
