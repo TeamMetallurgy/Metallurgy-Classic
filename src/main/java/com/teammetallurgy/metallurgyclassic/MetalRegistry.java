@@ -21,10 +21,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import static com.teammetallurgy.metallurgyclassic.utils.RangeUtils.rangeFromString;
 
 public class MetalRegistry {
     private class MetalEntry {
@@ -105,6 +108,9 @@ public class MetalRegistry {
                         config.oresPerVein = Integer.parseInt(row[headers.get("ores per vein")]);
                         config.minLevel = Integer.parseInt(row[headers.get("min level")]);
                         config.maxLevel = Integer.parseInt(row[headers.get("max level")]);
+                        var dimensionsString = row[headers.get("dimensions")];
+                        var dimensionsRangeArray = dimensionsString.split(" ");
+                        config.dimensions = Arrays.stream(dimensionsRangeArray).map(dim -> rangeFromString(dim, "-")).collect(Collectors.toList());
                     }
                     createMetal(config);
                 }

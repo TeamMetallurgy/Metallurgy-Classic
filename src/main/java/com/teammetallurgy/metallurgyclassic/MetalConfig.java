@@ -1,6 +1,9 @@
 package com.teammetallurgy.metallurgyclassic;
 
 import net.minecraft.util.Pair;
+import org.apache.commons.lang3.Range;
+
+import java.util.List;
 
 public class MetalConfig {
     public enum MetalSet {
@@ -92,4 +95,5 @@ public class MetalConfig {
     public int oresPerVein;
     public int minLevel;
     public int maxLevel;
+    public List<Range<Integer>> dimensions;
 }

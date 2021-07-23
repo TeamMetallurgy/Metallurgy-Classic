@@ -1,8 +1,12 @@
 package com.teammetallurgy.metallurgyclassic;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.structure.rule.BlockMatchRuleTest;
+import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
@@ -16,13 +20,26 @@ import net.minecraft.world.gen.heightprovider.UniformHeightProvider;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Predicate;
 
 public class MetallurgyOreGeneration {
     public static Map<BlockState, Float> densityMap = new HashMap<>();
 
     public static void register(MetalConfig config, BlockState ore) {
+        if(config.dimensions.stream().anyMatch(integerRange -> integerRange.contains(0))) {
+            register(config, ore, OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, BiomeSelectors.foundInOverworld());
+        }
+        if(config.dimensions.stream().anyMatch(integerRange -> integerRange.contains(-1))) {
+            register(config, ore, OreFeatureConfig.Rules.NETHERRACK, BiomeSelectors.foundInTheNether());
+        }
+        if(config.dimensions.stream().anyMatch(integerRange -> integerRange.contains(1))) {
+            register(config, ore, new BlockMatchRuleTest(Blocks.END_STONE), BiomeSelectors.foundInTheEnd());
+        }
+    }
+
+    private static void register(MetalConfig config, BlockState ore, RuleTest rule, Predicate<BiomeSelectionContext> biomeSelectors) {
         var feature = Feature.ORE
-                .configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, ore, config.oresPerVein))
+                .configure(new OreFeatureConfig(rule, ore, config.oresPerVein))
                 .range(new RangeDecoratorConfig(UniformHeightProvider.create(YOffset.aboveBottom(config.minLevel), YOffset.fixed(config.maxLevel))))
                 .spreadHorizontally()
                 .repeat(config.veinsPerChunk);
@@ -31,7 +48,7 @@ public class MetallurgyOreGeneration {
         var featureKey = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, new Identifier(MetallurgyClassic.MOD_ID, path));
 
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, featureKey.getValue(), feature);
-        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, featureKey);
+        BiomeModifications.addFeature(biomeSelectors, GenerationStep.Feature.UNDERGROUND_ORES, featureKey);
         //densityMap.put(ore, config.density); // Metallurgy 3 only had 100% dense ores by default
     }
 
