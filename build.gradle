@@ -34,6 +34,7 @@ dependencies {
 task generateTemplates {
 	inputs.property "modid", project.mod_identifier
 
+	def furnaces = ['copper', 'bronze', 'iron', 'steel']
 	def utilities = ['sulfur', 'phosphorite', 'saltpeter', 'magnesium', 'bitumen', 'potash']
 	def metals = ['silver', 'platinum', 'ignatius', 'shadow_iron', 'midasium', 'vyroxeres', 'ceruclase', 'kalendrite', 'vulcanite', 'sanguinite', 'prometheum', 'deep_iron', 'oureclase', 'astral_silver', 'carmot', 'mithril', 'orichalcum', 'adamantine', 'atlarus', 'eximite']
 	def catalysts = ['tin', 'manganese', 'zinc', 'lemurite', 'lemurite', 'alduorite', 'infuscolium', 'rubracium', 'meutoite']
@@ -91,6 +92,19 @@ task generateTemplates {
 			expand "modid": project.mod_identifier, "utility": metal_name
 			rename { String filename ->
 				filename.replace("\${utility}", metal_name)
+			}
+		}
+	}
+
+	// FURNACES
+	furnaces.each { metal_name ->
+		copy {
+			from "$projectDir/src/main/templates"
+			include "**/*\${furnace}*.json"
+			into "$buildDir/resources/main/"
+			expand "modid": project.mod_identifier, "furnace": metal_name
+			rename { String filename ->
+				filename.replace("\${furnace}", metal_name)
 			}
 		}
 	}

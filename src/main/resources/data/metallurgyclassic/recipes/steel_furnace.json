@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#F#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "metallurgyclassic:steel_ingot"
+    },
+    "F": {
+      "item": "metallurgyclassic:iron_furnace"
+    }
+  },
+  "result": {
+    "item": "metallurgyclassic:steel_furnace"
+  }
+}

@@ -1,6 +1,7 @@
 package com.teammetallurgy.metallurgyclassic;
 
 import com.teammetallurgy.metallurgyclassic.client.render.entities.CustomizableTntRenderer;
+import com.teammetallurgy.metallurgyclassic.machines.furnace.MetalFurnaceComponent;
 import com.teammetallurgy.metallurgyclassic.network.CustomizableTntSpawnPacket;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -15,5 +16,7 @@ public class MetallurgyClassicClient implements ClientModInitializer {
     public void onInitializeClient() {
         EntityRendererRegistry.INSTANCE.register(MetallurgyClassic.TNT_ENTITY_TYPE, CustomizableTntRenderer::new);
         ClientSidePacketRegistry.INSTANCE.register(CustomizableTntSpawnPacket.ID, CustomizableTntSpawnPacket::onPacket);
+
+        MetalFurnaceComponent.onInitializerClient();
     }
 }

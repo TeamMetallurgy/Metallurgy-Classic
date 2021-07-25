@@ -2,8 +2,13 @@ package com.teammetallurgy.metallurgyclassic.blocks;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.FurnaceBlockEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -25,6 +30,13 @@ public class MetallurgyBlocks {
     public static Block register(String name, Block block, Item.Settings settings) {
         Registry.register(Registry.BLOCK, id(name), block);
         Registry.register(Registry.ITEM, id(name), new BlockItem(block, settings));
+        return block;
+    }
+
+    public static Block registerWithEntity(String name, Block block, Item.Settings settings, BlockEntityType<? extends BlockEntity> type) {
+        Registry.register(Registry.BLOCK, id(name), block);
+        Registry.register(Registry.ITEM, id(name), new BlockItem(block, settings));
+        Registry.register(Registry.BLOCK_ENTITY_TYPE, id(name), type);
         return block;
     }
 }

@@ -6,7 +6,8 @@
   "mixins": [
   ],
   "client": [
-    "MetallurgyMixin"
+    "MetallurgyMixin",
+    "FurnaceCookTimeMixin"
   ],
   "injectors": {
     "defaultRequire": 1
