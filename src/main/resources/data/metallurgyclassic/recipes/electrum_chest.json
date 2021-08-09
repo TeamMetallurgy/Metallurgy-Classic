@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#F#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "metallurgyclassic:electrum_ingot"
+    },
+    "F": {
+      "item": "metallurgyclassic:gold_chest"
+    }
+  },
+  "result": {
+    "item": "metallurgyclassic:electrum_chest"
+  }
+}

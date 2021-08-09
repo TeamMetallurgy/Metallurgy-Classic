@@ -3,6 +3,7 @@ package com.teammetallurgy.metallurgyclassic;
 import com.teammetallurgy.metallurgyclassic.blocks.MetallurgyBlocks;
 import com.teammetallurgy.metallurgyclassic.entity.CustomizableTntEntity;
 import com.teammetallurgy.metallurgyclassic.items.MetallurgyItems;
+import com.teammetallurgy.metallurgyclassic.machines.chest.MetalChestComponent;
 import com.teammetallurgy.metallurgyclassic.machines.furnace.MetalFurnaceComponent;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -27,6 +28,7 @@ public class MetallurgyClassic implements ModInitializer {
 		MetallurgyItems.initialize();
 
 		MetalFurnaceComponent.onInitialize();
+		MetalChestComponent.onInitialize();
 	}
 
 	public static Identifier id(String name) {

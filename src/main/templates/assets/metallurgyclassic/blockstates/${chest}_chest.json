@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "metallurgyclassic:block/${chest}_chest"
+    }
+  }
+}

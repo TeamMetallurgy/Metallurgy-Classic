@@ -38,7 +38,6 @@ public class MetalFurnaceBlock extends AbstractFurnaceBlock {
             player.openHandledScreen((NamedScreenHandlerFactory)blockEntity);
             player.incrementStat(Stats.INTERACT_WITH_FURNACE);
         }
-
     }
 
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
