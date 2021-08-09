@@ -4,9 +4,11 @@
   "package": "com.teammetallurgy.metallurgyclassic.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
+    "MetallurgyMixin",
+    "UtilityCreeperMixin",
+    "UtilityTNTMixin"
   ],
   "client": [
-    "MetallurgyMixin",
     "FurnaceCookTimeMixin",
     "MetalChestTextureMixin"
   ],
