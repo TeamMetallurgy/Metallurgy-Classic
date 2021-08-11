@@ -16,6 +16,7 @@ import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.minecraft.util.registry.Registry;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,6 +25,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -55,8 +57,17 @@ public class MetalRegistry {
         return null;
     }
 
-    public Item getItem(String metal, String item) {
-        return registry.get(metal).items.get(item);
+    public Set<String> metals() {
+        return registry.keySet();
+    }
+
+    public @Nullable Item getItem(String metal, String item) {
+        if(registry.containsKey(metal)) {
+            if(registry.get(metal).items.containsKey(item)) {
+                return registry.get(metal).items.get(item);
+            }
+        }
+        return null;
     }
 
     public Block getBlock(String metal, String block) {

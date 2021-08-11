@@ -2,6 +2,7 @@ package com.teammetallurgy.metallurgyclassic;
 
 import com.teammetallurgy.metallurgyclassic.client.render.entities.CustomizableTntRenderer;
 import com.teammetallurgy.metallurgyclassic.machines.chest.MetalChestComponent;
+import com.teammetallurgy.metallurgyclassic.machines.crusher.CrusherComponent;
 import com.teammetallurgy.metallurgyclassic.machines.furnace.MetalFurnaceComponent;
 import com.teammetallurgy.metallurgyclassic.network.CustomizableTntSpawnPacket;
 import net.fabricmc.api.ClientModInitializer;
@@ -20,5 +21,6 @@ public class MetallurgyClassicClient implements ClientModInitializer {
 
         MetalFurnaceComponent.onInitializerClient();
         MetalChestComponent.onInitializerClient();
+        CrusherComponent.onInitializerClient();
     }
 }

@@ -22,6 +22,7 @@ lines = {
     "item.metallurgyclassic.${tool}_chestplate": "${tool} Chestplate",
     "item.metallurgyclassic.${tool}_leggings": "${tool} Leggings",
     "item.metallurgyclassic.${tool}_boots": "${tool} Boots",
+    "block.metallurgyclassic.{crusher}_crusher": "{crusher} Crusher"
 }
 translation = {
     "item.metallurgyclassic.fertilizer": "Fertilizer",
@@ -33,6 +34,7 @@ translation = {
 
 }
 
+crushers = ['stone', 'copper', 'bronze', 'iron', 'steel']
 furnaces = ['copper', 'bronze', 'iron', 'steel']
 chests = ['brass', 'silver', 'gold', 'electrum', 'platinum']
 utilities = ['sulfur', 'phosphorite', 'saltpeter', 'magnesium', 'bitumen', 'potash']
@@ -50,7 +52,8 @@ templates = {
 	"tool": tools,
 	"utility": utilities,
 	"furnace": furnaces,
-	"chest": chests
+	"chest": chests,
+	"crusher": crushers
 }
 
 def capitalize(string):
