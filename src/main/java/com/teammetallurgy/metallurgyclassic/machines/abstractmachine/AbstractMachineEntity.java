@@ -1,14 +1,12 @@
 package com.teammetallurgy.metallurgyclassic.machines.abstractmachine;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.LockableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.ContainerLock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -116,6 +114,21 @@ public abstract class AbstractMachineEntity<S, T> extends LockableContainerBlock
             } else {
                 slot -= processor.size();
                 producer.setStack(slot, stack);
+            }
+        }
+    }
+
+    @Override
+    public boolean isValid(int slot, ItemStack stack) {
+        if (slot < consumer.size()) {
+            return consumer.isValid(slot, stack);
+        } else {
+            slot -= consumer.size();
+            if (slot < processor.size()) {
+                return processor.isValid(slot, stack);
+            } else {
+                slot -= processor.size();
+                return producer.isValid(slot, stack);
             }
         }
     }

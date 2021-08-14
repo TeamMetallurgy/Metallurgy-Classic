@@ -28,6 +28,7 @@ dependencies {
 task generateTemplates {
 	inputs.property "modid", project.mod_identifier
 
+	def crushers = ['stone', 'copper', 'bronze', 'iron', 'steel']
 	def furnaces = ['copper', 'bronze', 'iron', 'steel']
 	def chests = ['brass', 'silver', 'gold', 'electrum', 'platinum']
 	def utilities = ['sulfur', 'phosphorite', 'saltpeter', 'magnesium', 'bitumen', 'potash']
@@ -45,7 +46,8 @@ task generateTemplates {
 		"tool": tools,
 		"utility": utilities,
 		"furnace": furnaces,
-		"chest": chests
+		"chest": chests,
+		"crusher": crushers
 	]
 
 	//noinspection GroovyAssignabilityCheck

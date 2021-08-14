@@ -94,6 +94,14 @@ public class ItemConsumer<T> extends AbstractMachineComponent implements Consume
         return ItemStack.EMPTY;
     }
 
+    @Override
+    public boolean isValid(int slot, ItemStack stack) {
+        if(getMatchingRecipe(stack) != null) {
+            return true;
+        }
+        return false;
+    }
+
     public float getProgress() {
         if (this.initialProcessingTime == 0) {
             return 0;

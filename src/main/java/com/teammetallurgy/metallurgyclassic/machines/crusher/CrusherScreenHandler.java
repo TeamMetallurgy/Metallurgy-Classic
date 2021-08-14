@@ -25,15 +25,29 @@ public class CrusherScreenHandler extends ScreenHandler {
 
     public CrusherScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory, PropertyDelegate propertyDelegate) {
         super(type, syncId);
-        System.out.println("Test screen handler");
         checkSize(inventory, 3);
         checkDataCount(propertyDelegate, 4);
         this.inventory = inventory;
         this.propertyDelegate = propertyDelegate;
 
-        this.addSlot(new Slot(inventory, 0, 56, 17));
-        this.addSlot(new Slot(inventory, 1, 56, 53));
-        this.addSlot(new Slot(inventory, 2, 116, 35));
+        this.addSlot(new Slot(inventory, 0, 56, 17) {
+            @Override
+            public boolean canInsert(ItemStack itemStack) {
+                return inventory.isValid(0, itemStack);
+            }
+        });
+        this.addSlot(new Slot(inventory, 1, 56, 53) {
+            @Override
+            public boolean canInsert(ItemStack itemStack) {
+                return inventory.isValid(1, itemStack);
+            }
+        });
+        this.addSlot(new Slot(inventory, 2, 116, 35) {
+            @Override
+            public boolean canInsert(ItemStack itemStack) {
+                return inventory.isValid(2, itemStack);
+            }
+        });
 
         int playerOffset = 84;
         for(int y = 0; y < 3; ++y) {

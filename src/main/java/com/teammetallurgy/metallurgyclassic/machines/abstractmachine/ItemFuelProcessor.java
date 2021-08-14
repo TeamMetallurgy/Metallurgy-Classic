@@ -6,15 +6,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import org.lwjgl.system.CallbackI;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class ItemFuelProcessor extends AbstractMachineComponent implements Processor {
 
     private final Map<Item, Integer> fuelTimes;
+    private final List<Listener> listeners;
 
     public ItemFuelProcessor() {
         super(1);
         this.fuelTimes = AbstractFurnaceBlockEntity.createFuelTimeMap();
+        this.listeners = new ArrayList<>();
     }
 
     @Override
@@ -26,19 +30,26 @@ public class ItemFuelProcessor extends AbstractMachineComponent implements Proce
     public int currentFuelBurnTime;
 
     @Override
-    public void process(boolean canContinue) {
-        System.out.println(canContinue);
-        System.out.println(currentFuelBurnTime + " / " + initialFuelBurnTime);
-        System.out.println(getFuelTime(input()));
+    public void process(boolean needsProcessing) {
+        boolean stateChange = false;
         if(currentFuelBurnTime > 0) {
             currentFuelBurnTime--;
-        } else if (canContinue) {
+            if (currentFuelBurnTime == 0 && (!needsProcessing || getFuelTime(input()) == 0)) {
+                stateChange = true;
+            }
+        } else if (needsProcessing) {
             int fuelBurnTime = getFuelTime(input());
             if(fuelBurnTime > 0) {
+                if (currentFuelBurnTime == 0) {
+                    stateChange = true;
+                }
                 initialFuelBurnTime = fuelBurnTime;
                 currentFuelBurnTime = initialFuelBurnTime;
                 input().decrement(1);
             }
+        }
+        if(stateChange) {
+            listeners.forEach(listener -> listener.onStateChange(currentFuelBurnTime > 0));
         }
     }
 
@@ -63,6 +74,19 @@ public class ItemFuelProcessor extends AbstractMachineComponent implements Proce
         } else {
             return fuelTimes.containsKey(input().getItem());
         }
+    }
+
+    @Override
+    public void addStateChangeListener(Listener listener) {
+        listeners.add(listener);
+    }
+
+    @Override
+    public boolean isValid(int slot, ItemStack stack) {
+        if(getFuelTime(stack) > 0) {
+            return true;
+        }
+        return false;
     }
 
     private int getFuelTime(ItemStack stack) {

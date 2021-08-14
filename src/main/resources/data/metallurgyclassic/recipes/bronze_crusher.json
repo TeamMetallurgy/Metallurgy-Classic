@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#F#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "metallurgyclassic:bronze_ingot"
+    },
+    "F": {
+      "item": "metallurgyclassic:copper_crusher"
+    }
+  },
+  "result": {
+    "item": "metallurgyclassic:bronze_crusher"
+  }
+}

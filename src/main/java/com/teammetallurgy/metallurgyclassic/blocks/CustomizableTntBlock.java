@@ -57,7 +57,6 @@ public class CustomizableTntBlock extends Block {
     }
 
     public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
-        System.out.println("test2");
         if (!oldState.isOf(state.getBlock())) {
             if (world.isReceivingRedstonePower(pos)) {
                 primeTnt(world, pos);
@@ -76,7 +75,6 @@ public class CustomizableTntBlock extends Block {
     }
 
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        System.out.println("test");
         if (!world.isClient() && !player.isCreative() && (Boolean)state.get(UNSTABLE)) {
             primeTnt(world, pos);
         }

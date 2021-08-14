@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CSC",
+    "SFS",
+    "CSC"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "C": {
+      "item": "minecraft:cobblestone"
+    },
+    "F": {
+      "item": "minecraft:furnace"
+    }
+  },
+  "result": {
+    "item": "metallurgyclassic:stone_crusher"
+  }
+}

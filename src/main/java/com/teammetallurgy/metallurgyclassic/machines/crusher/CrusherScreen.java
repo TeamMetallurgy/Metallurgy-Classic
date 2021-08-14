@@ -23,7 +23,6 @@ public class CrusherScreen extends HandledScreen<CrusherScreenHandler> {
 
     public CrusherScreen(CrusherScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
-        System.out.println("Test screen");
         this.passEvents = false;
         this.backgroundHeight = 166;
         this.backgroundWidth = 176;

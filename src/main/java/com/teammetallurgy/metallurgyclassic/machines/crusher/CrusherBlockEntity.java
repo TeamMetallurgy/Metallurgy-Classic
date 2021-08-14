@@ -3,6 +3,7 @@ package com.teammetallurgy.metallurgyclassic.machines.crusher;
 import com.teammetallurgy.metallurgyclassic.Constants;
 import com.teammetallurgy.metallurgyclassic.MetalRegistry;
 import com.teammetallurgy.metallurgyclassic.machines.abstractmachine.*;
+import net.minecraft.block.AbstractFurnaceBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerInventory;
@@ -51,6 +52,22 @@ public class CrusherBlockEntity extends AbstractMachineEntity<ItemStack, ItemSta
                 return 4;
             }
         };
+
+        this.processor.addStateChangeListener(state1 -> {
+            if(world != null) {
+                System.out.println("Notify: " + state1);
+                BlockState blockState = world.getBlockState(CrusherBlockEntity.this.getPos());
+                if(blockState.getBlock() instanceof CrusherBlock) {
+                    blockState = blockState.with(AbstractFurnaceBlock.LIT, state1);
+                    world.setBlockState(pos, blockState, Block.NOTIFY_ALL);
+                }
+            }
+        });
+    }
+
+
+    public void tick() {
+        super.tick();
     }
 
     private void addRecipes() {
@@ -83,5 +100,19 @@ public class CrusherBlockEntity extends AbstractMachineEntity<ItemStack, ItemSta
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
         return new CrusherScreenHandler(CrusherComponent.CRUSHER_SCREEN_HANDLER, syncId, playerInventory, this, propertyDelegate);
+    }
+
+    public float getFuelLevel() {
+        if(propertyDelegate.get(2) == 0) {
+            return 0;
+        }
+        return propertyDelegate.get(3) / (float) propertyDelegate.get(2);
+    }
+
+    public float getProgress() {
+        if(propertyDelegate.get(1) == 0) {
+            return 0;
+        }
+        return (propertyDelegate.get(0) - propertyDelegate.get(1)) / (float) propertyDelegate.get(0);
     }
 }

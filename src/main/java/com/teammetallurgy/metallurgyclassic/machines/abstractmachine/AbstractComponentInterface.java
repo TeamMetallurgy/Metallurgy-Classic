@@ -13,4 +13,5 @@ public interface AbstractComponentInterface {
     void clear();
     void readNbt(NbtCompound nbt);
     NbtCompound writeNbt(NbtCompound nbt);
+    default boolean isValid(int slot, ItemStack stack) { return false; }
 }
