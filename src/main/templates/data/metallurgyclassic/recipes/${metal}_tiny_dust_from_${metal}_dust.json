@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "${metal}_tiny_dust",
+  "ingredients": [
+    {
+      "item": "${modid}:${metal}_dust"
+    }
+  ],
+  "result": {
+    "item": "${modid}:${metal}_tiny_dust",
+    "count": 9
+  }
+}

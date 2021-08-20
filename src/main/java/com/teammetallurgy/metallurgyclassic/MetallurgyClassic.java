@@ -25,6 +25,7 @@ public class MetallurgyClassic implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		MetalRegistry.instance().parseCSV("/metals_data.csv");
+		MetalRegistry.instance().createGold();
 		MetallurgyBlocks.initialize();
 		MetallurgyItems.initialize();
 

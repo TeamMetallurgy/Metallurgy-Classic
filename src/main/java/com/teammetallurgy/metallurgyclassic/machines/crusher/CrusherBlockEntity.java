@@ -73,9 +73,11 @@ public class CrusherBlockEntity extends AbstractMachineEntity<ItemStack, ItemSta
         Collection<String> metals = MetalRegistry.instance().metals();
         for(String metal : metals) {
             Item dust = MetalRegistry.instance().getItem(metal, Constants.ItemDust);
+            Item tinyDust = MetalRegistry.instance().getItem(metal, Constants.ItemTinyDust);
             addRecipe(MetalRegistry.instance().getItem(metal, Constants.ItemIngot), dust, 1, (int) (20 * multiplier));
             addRecipe(MetalRegistry.instance().getItem(metal, Constants.ItemRawOre), dust, 1, (int) (20 * multiplier));
             addRecipe(MetalRegistry.instance().getBlock(metal, Constants.BlockOre), dust, 2, (int) (20 * multiplier));
+            addRecipe(MetalRegistry.instance().getItem(metal, Constants.ItemTinyNugget), tinyDust, 1, (int) (20 * multiplier));
         }
     }
 

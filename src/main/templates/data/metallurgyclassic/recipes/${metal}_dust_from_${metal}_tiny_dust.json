@@ -1,0 +1,16 @@
+ {
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "${modid}:${metal}_tiny_dust"
+    }
+  },
+  "result": {
+    "item": "${modid}:${metal}_dust"
+  }
+}
