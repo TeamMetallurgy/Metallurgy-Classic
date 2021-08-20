@@ -55,11 +55,9 @@ public class CrusherBlockEntity extends AbstractMachineEntity<ItemStack, ItemSta
 
         this.processor.addStateChangeListener(state1 -> {
             if(world != null) {
-                System.out.println("Notify: " + state1);
                 BlockState blockState = world.getBlockState(CrusherBlockEntity.this.getPos());
                 if(blockState.getBlock() instanceof CrusherBlock) {
-                    blockState = blockState.with(AbstractFurnaceBlock.LIT, state1);
-                    world.setBlockState(pos, blockState, Block.NOTIFY_ALL);
+                    world.setBlockState(pos, blockState.with(AbstractFurnaceBlock.LIT, state1), Block.NOTIFY_ALL);
                 }
             }
         });
@@ -76,20 +74,19 @@ public class CrusherBlockEntity extends AbstractMachineEntity<ItemStack, ItemSta
         for(String metal : metals) {
             Item dust = MetalRegistry.instance().getItem(metal, Constants.ItemDust);
             addRecipe(MetalRegistry.instance().getItem(metal, Constants.ItemIngot), dust, 1, (int) (20 * multiplier));
-            addRecipe(MetalRegistry.instance().getItem(metal, Constants.ItemRawOre), dust, 2, (int) (20 * multiplier));
+            addRecipe(MetalRegistry.instance().getItem(metal, Constants.ItemRawOre), dust, 1, (int) (20 * multiplier));
             addRecipe(MetalRegistry.instance().getBlock(metal, Constants.BlockOre), dust, 2, (int) (20 * multiplier));
         }
-        //addRecipe(MetalRegistry.instance().getItem("bronze", Constants.ItemIngot), MetalRegistry.instance().getItem("bronze", Constants.ItemDust), (int) (20 * multiplier));
     }
 
     private void addRecipe(Block input, Item output, int count, int time) {
         if(input == null || output == null || count == 0) return;
-        ((ItemConsumer<ItemStack>)this.consumer).addRecipe(new AbstractRecipe<ItemStack, ItemStack>(new ItemStack(input), new ItemStack(output, count), time));
+        ((ItemConsumer<ItemStack>)this.consumer).addRecipe(new AbstractRecipe<>(new ItemStack(input), new ItemStack(output, count), time));
     }
 
     private void addRecipe(Item input, Item output, int count, int time) {
         if(input == null || output == null || count == 0) return;
-        ((ItemConsumer<ItemStack>)this.consumer).addRecipe(new AbstractRecipe<ItemStack, ItemStack>(new ItemStack(input), new ItemStack(output, count), time));
+        ((ItemConsumer<ItemStack>)this.consumer).addRecipe(new AbstractRecipe<>(new ItemStack(input), new ItemStack(output, count), time));
     }
 
     @Override

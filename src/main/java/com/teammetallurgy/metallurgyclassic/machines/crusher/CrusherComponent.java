@@ -1,11 +1,6 @@
 package com.teammetallurgy.metallurgyclassic.machines.crusher;
 
 import com.teammetallurgy.metallurgyclassic.blocks.MetallurgyBlocks;
-import com.teammetallurgy.metallurgyclassic.machines.chest.MetalChestComponent;
-import com.teammetallurgy.metallurgyclassic.machines.chest.MetalChestEntity;
-import com.teammetallurgy.metallurgyclassic.machines.chest.MetalChestEntityRenderer;
-import com.teammetallurgy.metallurgyclassic.machines.chest.MetalChestScreen;
-import com.teammetallurgy.metallurgyclassic.machines.furnace.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
@@ -22,7 +17,6 @@ import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.screen.ScreenHandlerType;
@@ -37,7 +31,6 @@ import java.util.function.ToIntFunction;
 
 import static com.teammetallurgy.metallurgyclassic.MetallurgyClassic.id;
 import static com.teammetallurgy.metallurgyclassic.config.ModConfig.*;
-import static com.teammetallurgy.metallurgyclassic.config.ModConfig.STEEL_FURNACE_SMELT_TIME_SECONDS;
 import static net.minecraft.client.render.TexturedRenderLayers.CHEST_ATLAS_TEXTURE;
 
 public class CrusherComponent {
