@@ -1,5 +1,6 @@
 package com.teammetallurgy.metallurgyclassic.items;
 
+import com.teammetallurgy.metallurgyclassic.debug.OreScannerItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.BoneMealItem;
 import net.minecraft.item.Item;
@@ -14,12 +15,14 @@ public class MetallurgyItems {
     public static IgniterItem MATCH;
     public static Item TAR;
     public static Item FERTILIZER;
+    public static Item DEBUG_STICK;
 
     public static void initialize() {
         MAGNESIUM_IGNITER = (IgniterItem) register("magnesium_igniter", new IgniterItem(new FabricItemSettings().maxDamage(256).group(ItemGroup.TOOLS)));
         MATCH = (IgniterItem) register("match", new IgniterItem(new FabricItemSettings().maxDamage(1).group(ItemGroup.TOOLS)));
         TAR = register("tar", new Item(new FabricItemSettings().group(ItemGroup.MISC)));
         FERTILIZER = register("fertilizer", new BoneMealItem(new FabricItemSettings().group(ItemGroup.MISC)));
+        DEBUG_STICK = register("debug_stick", new OreScannerItem(new FabricItemSettings().group(ItemGroup.MISC)));
 
         MAGNESIUM_IGNITER.registerDispenserBehavior();
         MATCH.registerDispenserBehavior();

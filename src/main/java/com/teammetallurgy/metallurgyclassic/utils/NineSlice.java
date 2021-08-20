@@ -23,15 +23,19 @@ public class NineSlice extends DrawableHelper {
     // TODO: Add ability to scale
 
     public NineSlice(Identifier texture, int width, int textureWidth, int textureHeight) {
+        this(texture, width, width, textureWidth, textureHeight);
+    }
+
+    public NineSlice(Identifier texture, int edges, int center, int textureWidth, int textureHeight) {
         this.texture = texture;
         this.u = 0;
         this.v = 0;
-        this.leftWidth = width;
-        this.rightWidth = width;
-        this.bottomHeight = width;
-        this.topHeight = width;
-        this.centerHeight = width;
-        this.centerWidth = width;
+        this.leftWidth = edges;
+        this.rightWidth = edges;
+        this.bottomHeight = edges;
+        this.topHeight = edges;
+        this.centerHeight = center;
+        this.centerWidth = center;
         this.textureWidth = textureWidth;
         this.textureHeight = textureHeight;
     }
@@ -49,7 +53,7 @@ public class NineSlice extends DrawableHelper {
         // Top Left
         drawTexture(matrices, x, y, u, v, leftWidth, topHeight, textureWidth, textureHeight);
         // Top Center
-        drawTexture(matrices, x + leftWidth, y, width - leftWidth - rightWidth, topHeight, u + leftWidth, v, centerWidth, centerHeight, textureWidth, textureHeight);
+        drawTexture(matrices, x + leftWidth, y, width - leftWidth - rightWidth, topHeight, u + leftWidth, v, centerWidth, topHeight, textureWidth, textureHeight);
         // Top Right
         drawTexture(matrices, x + width - rightWidth, y, u + leftWidth + centerWidth, v, rightWidth, topHeight, textureWidth, textureHeight);
         // Center Left
@@ -61,7 +65,7 @@ public class NineSlice extends DrawableHelper {
         // Bottom Left
         drawTexture(matrices, x, y + height - bottomHeight, u, v + topHeight + centerHeight, leftWidth, bottomHeight, textureWidth, textureHeight);
         // Bottom Center
-        drawTexture(matrices, x + 4, y + height - bottomHeight, width - leftWidth - rightWidth, bottomHeight, u + leftWidth, v + topHeight + centerHeight, centerWidth, bottomHeight, textureWidth, textureHeight);
+        drawTexture(matrices, x + leftWidth, y + height - bottomHeight, width - leftWidth - rightWidth, bottomHeight, u + leftWidth, v + topHeight + centerHeight, centerWidth, bottomHeight, textureWidth, textureHeight);
         // Bottom Right
         drawTexture(matrices, x + width - rightWidth, y + height - bottomHeight, u + leftWidth + centerWidth, v + topHeight + bottomHeight, rightWidth, bottomHeight, textureWidth, textureHeight);
     }

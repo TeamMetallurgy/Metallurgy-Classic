@@ -80,7 +80,7 @@ public class CrusherComponent {
 
         for(Type type : Type.values()) {
             SpriteIdentifier spriteIdentifier = new SpriteIdentifier(CHEST_ATLAS_TEXTURE, id("entity/crusher/crusher_" + type.name));
-            SpriteIdentifier spriteIdentifierLit = new SpriteIdentifier(CHEST_ATLAS_TEXTURE, id("entity/crusher/crusher_" + type.name + "_lit"));
+            SpriteIdentifier spriteIdentifierLit = new SpriteIdentifier(CHEST_ATLAS_TEXTURE, id("entity/crusher/crusher_" + type.name + "_on"));
             ClientSpriteRegistryCallback.event(CHEST_ATLAS_TEXTURE).register((atlasTexture, registry) -> {
                 registry.register(spriteIdentifier.getTextureId());
                 registry.register(spriteIdentifierLit.getTextureId());
