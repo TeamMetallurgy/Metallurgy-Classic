@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "metallurgyclassic:item/iron_dust"
+    "layer0": "metallurgyclassic:item/copper_helmet"
   }
 }

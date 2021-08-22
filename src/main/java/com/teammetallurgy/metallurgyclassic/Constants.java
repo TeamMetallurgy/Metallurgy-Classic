@@ -8,7 +8,7 @@ public class Constants {
     public static final String ItemDust = "dust";
     public static final String ItemTinyDust = "tiny_dust";
     public static final String ItemIngot = "ingot";
-    public static final String ItemTinyNugget = "nugget";
+    public static final String ItemNugget = "nugget";
     public static final String ItemShovel = "shovel";
     public static final String ItemSword = "sword";
     public static final String ItemHoe = "hoe";

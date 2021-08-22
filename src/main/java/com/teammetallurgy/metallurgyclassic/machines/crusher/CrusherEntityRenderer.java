@@ -36,10 +36,11 @@ public class CrusherEntityRenderer implements BlockEntityRenderer<CrusherBlockEn
             matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-f));
             matrices.translate(-0.5D, -0.5D, -0.5D);
 
-            String lit = blockState.get(CrusherBlock.LIT) ? "_on" : "";
-            SpriteIdentifier spriteIdentifier = new SpriteIdentifier(CHEST_ATLAS_TEXTURE, id("entity/crusher/crusher_" + CrusherComponent.getType(entity).name + lit));
+            boolean lit = blockState.get(CrusherBlock.LIT);
+            String isLitSuffix = lit ? "_on" : "";
+            SpriteIdentifier spriteIdentifier = new SpriteIdentifier(CHEST_ATLAS_TEXTURE, id("entity/crusher/crusher_" + CrusherComponent.getType(entity).name + isLitSuffix));
             VertexConsumer vertexConsumer = spriteIdentifier.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
-            model.setAngles(entity, 0, 0, tickDelta, 0, 0);
+            model.setAngles(entity, lit);
             model.render(matrices, vertexConsumer, light, overlay, 1, 1, 1, 1);
 
             matrices.pop();

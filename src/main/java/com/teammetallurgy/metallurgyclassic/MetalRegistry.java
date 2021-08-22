@@ -7,6 +7,7 @@ import com.teammetallurgy.metallurgyclassic.tools.MetallurgyHoeItem;
 import com.teammetallurgy.metallurgyclassic.tools.MetallurgyPickaxeItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -90,10 +91,6 @@ public class MetalRegistry {
                 if (set != null) {
                     config.set = set;
                     config.name = row[headers.get("name")].toLowerCase().replace(" ", "_");
-                    // Copper has become a vanilla metal, but the sheet still lists it as a base metal.
-                    if(config.name.equals("copper")) {
-                        return;
-                    }
                     config.type = MetalConfig.MetalType.get(row[headers.get("type")]);
                     if(config.type == MetalConfig.MetalType.ALLOY) {
                         var alloyRecipeString = row[headers.get("alloy recipe")];
@@ -124,7 +121,12 @@ public class MetalRegistry {
                         var dimensionsRangeArray = dimensionsString.split(" ");
                         config.dimensions = Arrays.stream(dimensionsRangeArray).map(dim -> rangeFromString(dim, "-")).collect(Collectors.toList());
                     }
-                    createMetal(config);
+                    // Copper has become a vanilla metal, but the sheet still lists it as a base metal.
+                    if(config.name.equalsIgnoreCase("copper")) {
+                        createCopper(config);
+                    } else {
+                        createMetal(config);
+                    }
                 }
             });
         } catch (IOException e) {
@@ -136,18 +138,19 @@ public class MetalRegistry {
         var entry = new MetalEntry();
         Item dust = new Item(new FabricItemSettings().group(ItemGroup.MATERIALS));
         Item tinyDust = new Item(new FabricItemSettings().group(ItemGroup.MATERIALS));
-        Item nugget = new Item(new FabricItemSettings().group(ItemGroup.MATERIALS));
+        Block bricks = new Block(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES, 1).strength(3.0f, 3.0f));
 
         entry.blocks.put(Constants.BlockBlock, Blocks.GOLD_BLOCK);
-        entry.blocks.put(Constants.BlockBricks, Blocks.GOLD_BLOCK);
+        entry.blocks.put(Constants.BlockBricks, bricks);
         entry.items.put(Constants.ItemDust, dust);
         entry.items.put(Constants.ItemIngot, Items.GOLD_INGOT);
         entry.items.put(Constants.ItemTinyDust, tinyDust);
-        entry.items.put(Constants.ItemTinyNugget, nugget);
+        entry.items.put(Constants.ItemNugget, Items.GOLD_NUGGET);
 
         Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, "gold_dust"), dust);
         Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, "gold_tiny_dust"), tinyDust);
-        Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, "gold_nugget"), nugget);
+        Registry.register(Registry.BLOCK, new Identifier(MetallurgyClassic.MOD_ID, "gold_bricks"), bricks);
+        Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, "gold_bricks"), new BlockItem(bricks, new FabricItemSettings().group(ItemGroup.BUILDING_BLOCKS)));
 
         entry.blocks.put(Constants.BlockOre, Blocks.GOLD_ORE);
         entry.items.put(Constants.ItemRawOre, Items.RAW_GOLD);
@@ -162,6 +165,95 @@ public class MetalRegistry {
         entry.items.put(Constants.ItemBoots, Items.GOLDEN_BOOTS);
 
         registry.put("gold", entry);
+    }
+
+    public void createIron() {
+        var entry = new MetalEntry();
+        Item dust = new Item(new FabricItemSettings().group(ItemGroup.MATERIALS));
+        Item tinyDust = new Item(new FabricItemSettings().group(ItemGroup.MATERIALS));
+        Block bricks = new Block(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES, 1).strength(3.0f, 3.0f));
+
+        entry.blocks.put(Constants.BlockBlock, Blocks.IRON_BLOCK);
+        entry.blocks.put(Constants.BlockBricks, bricks);
+        entry.items.put(Constants.ItemDust, dust);
+        entry.items.put(Constants.ItemIngot, Items.IRON_INGOT);
+        entry.items.put(Constants.ItemTinyDust, tinyDust);
+        entry.items.put(Constants.ItemNugget, Items.IRON_NUGGET);
+
+        Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, "iron_dust"), dust);
+        Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, "iron_tiny_dust"), tinyDust);
+        Registry.register(Registry.BLOCK, new Identifier(MetallurgyClassic.MOD_ID, "iron_bricks"), bricks);
+        Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, "iron_bricks"), new BlockItem(bricks, new FabricItemSettings().group(ItemGroup.BUILDING_BLOCKS)));
+
+        entry.blocks.put(Constants.BlockOre, Blocks.IRON_ORE);
+        entry.items.put(Constants.ItemRawOre, Items.RAW_IRON);
+        entry.items.put(Constants.ItemShovel, Items.IRON_SHOVEL);
+        entry.items.put(Constants.ItemSword, Items.IRON_SWORD);
+        entry.items.put(Constants.ItemHoe, Items.IRON_HOE);
+        entry.items.put(Constants.ItemAxe, Items.IRON_AXE);
+        entry.items.put(Constants.ItemPickaxe, Items.IRON_PICKAXE);
+        entry.items.put(Constants.ItemHelmet, Items.IRON_HELMET);
+        entry.items.put(Constants.ItemChestplate, Items.IRON_CHESTPLATE);
+        entry.items.put(Constants.ItemLeggings, Items.IRON_LEGGINGS);
+        entry.items.put(Constants.ItemBoots, Items.IRON_BOOTS);
+
+        registry.put("iron", entry);
+    }
+
+    private void createCopper(MetalConfig config) {
+        var entry = new MetalEntry();
+        Item ingot = Items.COPPER_INGOT;
+        Item dust = new Item(new FabricItemSettings().group(ItemGroup.MATERIALS));
+        Item tinyDust = new Item(new FabricItemSettings().group(ItemGroup.MATERIALS));
+        Item nugget = new Item(new FabricItemSettings().group(ItemGroup.MATERIALS));
+        Block bricks = new Block(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES, config.blockLevel).strength(3.0f, 3.0f));
+
+        entry.blocks.put(Constants.BlockBlock, Blocks.COPPER_BLOCK);
+        entry.blocks.put(Constants.BlockBricks, bricks);
+        entry.items.put(Constants.ItemDust, dust);
+        entry.items.put(Constants.ItemIngot, ingot);
+        entry.items.put(Constants.ItemTinyDust, tinyDust);
+        entry.items.put(Constants.ItemNugget, nugget);
+
+        Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, "copper_dust"), dust);
+        Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, "copper_tiny_dust"), tinyDust);
+        Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, "copper_nugget"), nugget);
+        Registry.register(Registry.BLOCK, new Identifier(MetallurgyClassic.MOD_ID, "copper_bricks"), bricks);
+        Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, config.name + "_bricks"), new BlockItem(bricks, new FabricItemSettings().group(ItemGroup.BUILDING_BLOCKS)));
+
+        Item shovel = new ShovelItem(new MetallurgyToolMaterial(config.toolDurability, config.toolSpeed, config.toolDamage, config.pickLevel, config.enchantability, ingot), config.toolDamage, config.toolSpeed, new Item.Settings().group(ItemGroup.TOOLS));
+        Item hoe = new MetallurgyHoeItem(new MetallurgyToolMaterial(config.toolDurability, config.toolSpeed, config.toolDamage, config.pickLevel, config.enchantability, ingot), config.toolDamage, config.toolSpeed, new Item.Settings().group(ItemGroup.TOOLS));
+        Item axe = new MetallurgyAxeItem(new MetallurgyToolMaterial(config.toolDurability, config.toolSpeed, config.toolDamage, config.pickLevel, config.enchantability, ingot), config.toolDamage, config.toolSpeed, new Item.Settings().group(ItemGroup.TOOLS));
+        Item pickaxe = new MetallurgyPickaxeItem(new MetallurgyToolMaterial(config.toolDurability, config.toolSpeed, config.toolDamage, config.pickLevel, config.enchantability, ingot), config.toolDamage, config.toolSpeed, new Item.Settings().group(ItemGroup.TOOLS));
+        Item sword = new SwordItem(new MetallurgyToolMaterial(config.toolDurability, config.toolSpeed, config.toolDamage, config.pickLevel, config.enchantability, ingot), config.toolDamage, config.toolSpeed, new Item.Settings().group(ItemGroup.COMBAT));
+        var armorMaterial = new MetallurgyArmorMaterial(config.name, config.armorDurability, new int[]{config.helmetArmor, config.chestplateArmor, config.leggingsArmor, config.bootsArmor}, config.enchantability, 0f, ingot);
+        Item helmet = new ArmorItem(armorMaterial, EquipmentSlot.HEAD, new Item.Settings().group(ItemGroup.COMBAT));
+        Item chestplate = new ArmorItem(armorMaterial, EquipmentSlot.CHEST, new Item.Settings().group(ItemGroup.COMBAT));
+        Item leggings = new ArmorItem(armorMaterial, EquipmentSlot.LEGS, new Item.Settings().group(ItemGroup.COMBAT));
+        Item boots = new ArmorItem(armorMaterial, EquipmentSlot.FEET, new Item.Settings().group(ItemGroup.COMBAT));
+        Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, config.name + "_shovel"), shovel);
+        Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, config.name + "_sword"), sword);
+        Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, config.name + "_hoe"), hoe);
+        Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, config.name + "_axe"), axe);
+        Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, config.name + "_pickaxe"), pickaxe);
+        Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, config.name + "_helmet"), helmet);
+        Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, config.name + "_chestplate"), chestplate);
+        Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, config.name + "_leggings"), leggings);
+        Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, config.name + "_boots"), boots);
+
+        entry.blocks.put(Constants.BlockOre, Blocks.COPPER_ORE);
+        entry.items.put(Constants.ItemRawOre, Items.RAW_COPPER);
+        entry.items.put(Constants.ItemShovel, shovel);
+        entry.items.put(Constants.ItemSword, sword);
+        entry.items.put(Constants.ItemHoe, hoe);
+        entry.items.put(Constants.ItemAxe, axe);
+        entry.items.put(Constants.ItemPickaxe, pickaxe);
+        entry.items.put(Constants.ItemHelmet, helmet);
+        entry.items.put(Constants.ItemChestplate, chestplate);
+        entry.items.put(Constants.ItemLeggings, leggings);
+        entry.items.put(Constants.ItemBoots, boots);
+
+        registry.put("copper", entry);
     }
 
     public void createMetal(MetalConfig config) {
@@ -192,7 +284,7 @@ public class MetalRegistry {
             entry.items.put(Constants.ItemDust, dust);
             entry.items.put(Constants.ItemIngot, ingot);
             entry.items.put(Constants.ItemTinyDust, tinyDust);
-            entry.items.put(Constants.ItemTinyNugget, tinyNugget);
+            entry.items.put(Constants.ItemNugget, tinyNugget);
 
             Registry.register(Registry.BLOCK, new Identifier(MetallurgyClassic.MOD_ID, config.name + "_block"), block);
             Registry.register(Registry.BLOCK, new Identifier(MetallurgyClassic.MOD_ID, config.name + "_bricks"), bricks);

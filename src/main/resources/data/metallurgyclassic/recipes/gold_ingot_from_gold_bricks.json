@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "gold_ingot",
+  "ingredients": [
+    {
+      "item": "metallurgyclassic:gold_bricks"
+    }
+  ],
+  "result": {
+    "item": "minecraft:gold_ingot",
+    "count": 4
+  }
+}

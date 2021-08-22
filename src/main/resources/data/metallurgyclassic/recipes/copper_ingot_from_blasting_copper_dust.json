@@ -2,9 +2,9 @@
   "type": "minecraft:blasting",
   "group": "gold_ingot",
   "ingredient": {
-    "item": "metallurgyclassic:gold_tiny_dust"
+    "item": "metallurgyclassic:copper_dust"
   },
-  "result": "minecraft:gold_nugget",
+  "result": "minecraft:copper_ingot",
   "experience": 0.7,
   "cookingtime": 100
 }

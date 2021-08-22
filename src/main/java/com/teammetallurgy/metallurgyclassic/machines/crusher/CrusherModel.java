@@ -52,12 +52,7 @@ public class CrusherModel extends EntityModel<Entity> {
         return TexturedModelData.of(modelData,64,64);
     }
 
-    public void setAngles(CrusherBlockEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        boolean lit = false;
-        if(entity.getWorld() != null) {
-            lit = entity.getWorld().getBlockState(entity.getPos()).get(CrusherBlock.LIT);
-        }
-
+    public void setAngles(CrusherBlockEntity entity, boolean lit) {
         rollerbone1.pitch = DEGREES_45;
         rollerbone2.pitch = DEGREES_45;
         if(lit || Math.abs(rollerbone1.pitch - DEGREES_45) > 0.1) {
