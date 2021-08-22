@@ -2,9 +2,9 @@
   "type": "minecraft:smelting",
   "group": "gold_ingot",
   "ingredient": {
-    "item": "${modid}:gold_tiny_dust"
+    "item": "metallurgyclassic:gold_dust"
   },
-  "result": "${modid}:gold_nugget",
+  "result": "minecraft:gold_ingot",
   "experience": 0.7,
   "cookingtime": 200
 }

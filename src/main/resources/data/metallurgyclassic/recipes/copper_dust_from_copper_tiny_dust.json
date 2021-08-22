@@ -7,10 +7,10 @@
   ],
   "key": {
     "#": {
-      "item": "metallurgyclassic:iron_tiny_dust"
+      "item": "metallurgyclassic:copper_tiny_dust"
     }
   },
   "result": {
-    "item": "metallurgyclassic:iron_dust"
+    "item": "metallurgyclassic:copper_dust"
   }
-}
+ }

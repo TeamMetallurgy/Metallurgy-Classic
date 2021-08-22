@@ -7,10 +7,10 @@
   ],
   "key": {
     "#": {
-      "item": "${modid}:gold_tiny_dust"
+      "item": "metallurgyclassic:gold_tiny_dust"
     }
   },
   "result": {
-    "item": "${modid}:gold_dust"
+    "item": "metallurgyclassic:gold_dust"
   }
 }

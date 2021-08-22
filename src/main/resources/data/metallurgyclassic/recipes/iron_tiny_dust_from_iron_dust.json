@@ -3,11 +3,11 @@
   "group": "iron_tiny_dust",
   "ingredients": [
     {
-      "item": "${modid}:iron_dust"
+      "item": "metallurgyclassic:iron_dust"
     }
   ],
   "result": {
-    "item": "${modid}:iron_tiny_dust",
+    "item": "metallurgyclassic:iron_tiny_dust",
     "count": 9
   }
 }

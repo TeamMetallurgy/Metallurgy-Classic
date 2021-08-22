@@ -3,11 +3,11 @@
   "group": "gold_tiny_dust",
   "ingredients": [
     {
-      "item": "metallurgyclassic:gold_dust"
+      "item": "metallurgyclassic:copper_dust"
     }
   ],
   "result": {
-    "item": "metallurgyclassic:gold_tiny_dust",
+    "item": "metallurgyclassic:copper_tiny_dust",
     "count": 9
   }
 }

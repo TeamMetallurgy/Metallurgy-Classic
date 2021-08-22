@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "copper_ingot",
+  "ingredients": [
+    {
+      "item": "metallurgyclassic:copper_bricks"
+    }
+  ],
+  "result": {
+    "item": "minecraft:copper_ingot",
+    "count": 4
+  }
+}

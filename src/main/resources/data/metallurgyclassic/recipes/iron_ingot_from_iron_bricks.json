@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "iron_ingot",
+  "ingredients": [
+    {
+      "item": "metallurgyclassic:iron_bricks"
+    }
+  ],
+  "result": {
+    "item": "minecraft:iron_ingot",
+    "count": 4
+  }
+}

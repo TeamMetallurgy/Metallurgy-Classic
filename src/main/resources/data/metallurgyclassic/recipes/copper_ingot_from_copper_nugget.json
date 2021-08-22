@@ -7,10 +7,10 @@
   ],
   "key": {
     "#": {
-      "item": "metallurgyclassic:iron_tiny_dust"
+      "item": "metallurgyclassic:copper_nugget"
     }
   },
   "result": {
-    "item": "metallurgyclassic:iron_dust"
+    "item": "minecraft:copper_ingot"
   }
-}
+ }

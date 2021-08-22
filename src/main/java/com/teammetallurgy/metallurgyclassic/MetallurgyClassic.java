@@ -8,6 +8,7 @@ import com.teammetallurgy.metallurgyclassic.machines.crusher.CrusherComponent;
 import com.teammetallurgy.metallurgyclassic.machines.furnace.MetalFurnaceComponent;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.util.Identifier;
@@ -26,6 +27,7 @@ public class MetallurgyClassic implements ModInitializer {
 	public void onInitialize() {
 		MetalRegistry.instance().parseCSV("/metals_data.csv");
 		MetalRegistry.instance().createGold();
+		MetalRegistry.instance().createIron();
 		MetallurgyBlocks.initialize();
 		MetallurgyItems.initialize();
 
