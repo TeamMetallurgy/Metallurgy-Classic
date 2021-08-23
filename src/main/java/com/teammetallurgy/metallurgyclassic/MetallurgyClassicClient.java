@@ -30,6 +30,7 @@ public class MetallurgyClassicClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        MetalRegistry.instance().setOreRenderLayers();
         EntityRendererRegistry.INSTANCE.register(MetallurgyClassic.TNT_ENTITY_TYPE, CustomizableTntRenderer::new);
         ClientSidePacketRegistry.INSTANCE.register(CustomizableTntSpawnPacket.ID, CustomizableTntSpawnPacket::onPacket);
 

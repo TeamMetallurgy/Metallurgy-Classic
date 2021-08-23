@@ -5,14 +5,17 @@ import com.teammetallurgy.metallurgyclassic.materials.MetallurgyToolMaterial;
 import com.teammetallurgy.metallurgyclassic.tools.MetallurgyAxeItem;
 import com.teammetallurgy.metallurgyclassic.tools.MetallurgyHoeItem;
 import com.teammetallurgy.metallurgyclassic.tools.MetallurgyPickaxeItem;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.block.OreBlock;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
@@ -24,18 +27,27 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static com.teammetallurgy.metallurgyclassic.utils.RangeUtils.rangeFromString;
 
 public class MetalRegistry {
+    public enum StoneTypes {
+        STONE,
+        GRANITE,
+        ANDESITE,
+        DIORITE,
+        DEEPSLATE,
+        NETHERRACK,
+        BASALT,
+        END_STONE
+    }
+
     private class MetalEntry {
         public MetalConfig config;
+        public Map<String, Block> ores = new HashMap<>();
         public Map<String, Item> items = new HashMap<>();
         public Map<String, Block> blocks = new HashMap<>();
     }
@@ -70,6 +82,10 @@ public class MetalRegistry {
             }
         }
         return null;
+    }
+
+    public Collection<Block> getOres(String metal) {
+        return registry.get(metal).ores.values();
     }
 
     public Block getBlock(String metal, String block) {
@@ -260,16 +276,14 @@ public class MetalRegistry {
         var entry = new MetalEntry();
         entry.config = config;
         if(config.type.hasOre()) {
-            Block ore = new OreBlock(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES, 1).strength(3.0f, 3.0f));
-            entry.blocks.put(Constants.BlockOre, ore);
+            var ores = createOres(config);
+            ores.forEach((name, ore) -> {
+                entry.ores.put(name.name().toLowerCase(), ore);
+            });
             Item rawOre = new Item(new FabricItemSettings().group(ItemGroup.MATERIALS));
             entry.items.put(Constants.ItemRawOre, rawOre);
 
-            Registry.register(Registry.BLOCK, new Identifier(MetallurgyClassic.MOD_ID, config.name + "_ore"), ore);
-            Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, config.name + "_ore"), new BlockItem(ore, new FabricItemSettings().group(ItemGroup.BUILDING_BLOCKS)));
             Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, "raw_" + config.name), rawOre);
-
-            MetallurgyOreGeneration.register(config, ore.getDefaultState());
         }
 
         if(config.type.hasIngot()) {
@@ -327,5 +341,28 @@ public class MetalRegistry {
             }
         }
         registry.put(config.name, entry);
+    }
+
+    private Map<StoneTypes, Block> createOres(MetalConfig config) {
+        var ores = new HashMap<StoneTypes, Block>();
+        for (StoneTypes type : StoneTypes.values()) {
+            Block ore = new OreBlock(FabricBlockSettings.of(Material.STONE).nonOpaque().breakByTool(FabricToolTags.PICKAXES, 1).strength(3.0f, 3.0f));
+
+            Registry.register(Registry.BLOCK, new Identifier(MetallurgyClassic.MOD_ID, config.name + "_ore_" + type.name().toLowerCase()), ore);
+            Registry.register(Registry.ITEM, new Identifier(MetallurgyClassic.MOD_ID, config.name + "_ore_" + type.name().toLowerCase()), new BlockItem(ore, new FabricItemSettings().group(ItemGroup.BUILDING_BLOCKS)));
+            ores.put(type, ore);
+        }
+        MetallurgyOreGeneration.register(config, ores);
+        return ores;
+    }
+
+
+    @Environment(EnvType.CLIENT)
+    public void setOreRenderLayers() {
+        registry.forEach((name, entry) -> {
+            entry.ores.forEach((stone, ore) -> {
+                BlockRenderLayerMap.INSTANCE.putBlock(ore, RenderLayer.getCutoutMipped());
+            });
+        });
     }
 }

@@ -1,0 +1,7 @@
+{
+  "parent": "${modid}:block/block_ore_overlay",
+  "textures": {
+    "stone": "minecraft:block/andesite",
+    "ore": "${modid}:block/${ore}_ore_overlay"
+  }
+}

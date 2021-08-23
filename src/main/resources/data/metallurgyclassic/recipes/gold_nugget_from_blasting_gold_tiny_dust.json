@@ -1,6 +1,6 @@
 {
   "type": "minecraft:blasting",
-  "group": "gold_ingot",
+  "group": "gold_nugget",
   "ingredient": {
     "item": "metallurgyclassic:gold_tiny_dust"
   },

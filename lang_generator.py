@@ -1,12 +1,14 @@
 import json
 
 lines = {
-    "block.metallurgyclassic.${ore}_ore": "${ore} Ore",
+    "block.metallurgyclassic.${ore}_ore_${stone}": "${ore} Ore",
     "block.metallurgyclassic.${metal}_bricks": "${metal} Bricks",
     "block.metallurgyclassic.${metal}_block": "${metal} Block",
     "item.metallurgyclassic.raw_${ore}": "Raw ${ore}",
     "item.metallurgyclassic.${metal}_ingot": "${metal} Ingot",
     "item.metallurgyclassic.${metal}_dust": "${metal} Dust",
+    "item.metallurgyclassic.${metal}_tiny_dust": "Tiny ${metal} Dust",
+    "item.metallurgyclassic.${metal}_nugget": "${metal} Nugget",
     "block.metallurgyclassic.${furnace}_furnace": "${furnace} Furnace",
     "block.metallurgyclassic.${chest}_chest": "${chest} Chest",
     "item.metallurgyclassic.raw_${utility}": "${utility}",
@@ -22,7 +24,11 @@ lines = {
     "item.metallurgyclassic.${tool}_chestplate": "${tool} Chestplate",
     "item.metallurgyclassic.${tool}_leggings": "${tool} Leggings",
     "item.metallurgyclassic.${tool}_boots": "${tool} Boots",
-    "block.metallurgyclassic.{crusher}_crusher": "{crusher} Crusher"
+    "block.metallurgyclassic.${crusher}_crusher": "${crusher} Crusher",
+    "metallurgyclassic.container.crusher.${crusher}": "${crusher} Crusher",
+    "block.metallurgyclassic.${vanilla}_bricks": "${vanilla} Bricks",
+    "item.metallurgyclassic.${vanilla}_dust": "${vanilla} Dust",
+    "item.metallurgyclassic.${vanilla}_tiny_dust": "Tiny ${vanilla} Dust"
 }
 translation = {
     "item.metallurgyclassic.fertilizer": "Fertilizer",
@@ -34,11 +40,13 @@ translation = {
 
 }
 
+stones = ['stone', 'granite', 'andesite', 'diorite', 'deepslate', 'netherrack', 'basalt', 'end_stone']
+vanilla = ['iron', 'gold']
 crushers = ['stone', 'copper', 'bronze', 'iron', 'steel']
 furnaces = ['copper', 'bronze', 'iron', 'steel']
 chests = ['brass', 'silver', 'gold', 'electrum', 'platinum']
 utilities = ['sulfur', 'phosphorite', 'saltpeter', 'magnesium', 'bitumen', 'potash']
-metals = ['silver', 'platinum', 'ignatius', 'shadow_iron', 'midasium', 'vyroxeres', 'ceruclase', 'kalendrite', 'vulcanite', 'sanguinite', 'prometheum', 'deep_iron', 'oureclase', 'astral_silver', 'carmot', 'mithril', 'orichalcum', 'adamantine', 'atlarus', 'eximite']
+metals = ['copper', 'silver', 'platinum', 'ignatius', 'shadow_iron', 'midasium', 'vyroxeres', 'ceruclase', 'kalendrite', 'vulcanite', 'sanguinite', 'prometheum', 'deep_iron', 'oureclase', 'astral_silver', 'carmot', 'mithril', 'orichalcum', 'adamantine', 'atlarus', 'eximite']
 catalysts = ['tin', 'manganese', 'zinc', 'lemurite', 'alduorite', 'infuscolium', 'rubracium', 'meutoite']
 alloys = ['bronze', 'hepatizon', 'damascus_steel', 'angmallen', 'steel', 'brass', 'electrum', 'shadow_steel', 'inolashite', 'amordrine', 'black_steel', 'quicksilver', 'haderoth', 'celenegil', 'tartarite', 'desichalkos']
 
@@ -47,13 +55,14 @@ items = metals + catalysts + alloys
 tools = metals + alloys
 
 templates = {
-	"ore": ores,
-	"metal": items,
-	"tool": tools,
-	"utility": utilities,
-	"furnace": furnaces,
-	"chest": chests,
-	"crusher": crushers
+    "ore": ores,
+    "metal": items,
+    "tool": tools,
+    "utility": utilities,
+    "furnace": furnaces,
+    "chest": chests,
+    "crusher": crushers,
+    "vanilla": vanilla,
 }
 
 def capitalize(string):
@@ -62,11 +71,22 @@ def capitalize(string):
 
 for item, value in lines.items():
     for template_key, template_values in templates.items():
-        key = "${" + template_key + "}"
-        if key in item:
-            for template_item in template_values:
-                translated_key = item.replace(key, template_item, 1)
-                translated_string = value.replace(key, capitalize(template_item), 1)
-                translation[translated_key] = translated_string
+        if template_key == 'ore':
+            for stone_type in stones:
+                key = "${" + template_key + "}"
+                stone_key = "${stone}"
+                if key in item:
+                    for template_item in template_values:
+                        translated_key = item.replace(key, template_item, 1)
+                        translated_key = translated_key.replace(stone_key, stone_type, 1)
+                        translated_string = value.replace(key, capitalize(template_item), 1)
+                        translation[translated_key] = translated_string
+        else:
+            key = "${" + template_key + "}"
+            if key in item:
+                for template_item in template_values:
+                    translated_key = item.replace(key, template_item, 1)
+                    translated_string = value.replace(key, capitalize(template_item), 1)
+                    translation[translated_key] = translated_string
 
 print(json.dumps(translation, indent=2))

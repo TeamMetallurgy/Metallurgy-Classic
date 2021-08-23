@@ -25,7 +25,7 @@
                   }
                 }
               ],
-              "name": "${modid}:${ore}_ore"
+              "name": "${modid}:${ore}_ore_andesite"
             },
             {
               "type": "minecraft:item",

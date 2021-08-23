@@ -35,8 +35,10 @@ task generateTemplates {
 	def metals = ['silver', 'platinum', 'ignatius', 'shadow_iron', 'midasium', 'vyroxeres', 'ceruclase', 'kalendrite', 'vulcanite', 'sanguinite', 'prometheum', 'deep_iron', 'oureclase', 'astral_silver', 'carmot', 'mithril', 'orichalcum', 'adamantine', 'atlarus', 'eximite']
 	def catalysts = ['tin', 'manganese', 'zinc', 'lemurite', 'lemurite', 'alduorite', 'infuscolium', 'rubracium', 'meutoite']
 	def alloys = ['bronze', 'hepatizon', 'damascus_steel', 'angmallen', 'steel', 'brass', 'electrum', 'shadow_steel', 'inolashite', 'amordrine', 'black_steel', 'quicksilver', 'haderoth', 'celenegil', 'tartarite', 'desichalkos']
+	def stone = ['stone', 'granite', 'andesite', 'diorite', 'deepslate', 'netherrack', 'smooth_basalt', 'end_stone']
 
-	def ores = metals + catalysts
+	def smeltable = metals + catalysts
+	def ores = metals + catalysts + utilities
 	def items = metals + catalysts + alloys
 	def tools = metals + alloys
 
@@ -44,10 +46,11 @@ task generateTemplates {
 		"ore": ores,
 		"metal": items,
 		"tool": tools,
-		"utility": utilities,
+		//"utility": utilities,
 		"furnace": furnaces,
 		"chest": chests,
-		"crusher": crushers
+		"crusher": crushers,
+		"smeltable": smeltable
 	]
 
 	//noinspection GroovyAssignabilityCheck

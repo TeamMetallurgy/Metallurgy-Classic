@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:blasting",
+  "group": "${smeltable}_ingot",
+  "ingredient": {
+    "item": "${modid}:${smeltable}_ore_end_stone"
+  },
+  "result": "${modid}:${smeltable}_ingot",
+  "experience": 0.7,
+  "cookingtime": 100
+}

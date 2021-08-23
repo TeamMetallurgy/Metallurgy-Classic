@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "group": "${smeltable}_ingot",
+  "ingredient": {
+    "item": "${modid}:${smeltable}_ore_diorite"
+  },
+  "result": "${modid}:${smeltable}_ingot",
+  "experience": 0.7,
+  "cookingtime": 200
+}
