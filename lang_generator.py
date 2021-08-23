@@ -12,7 +12,7 @@ lines = {
     "block.metallurgyclassic.${furnace}_furnace": "${furnace} Furnace",
     "block.metallurgyclassic.${chest}_chest": "${chest} Chest",
     "item.metallurgyclassic.raw_${utility}": "${utility}",
-    "block.metallurgyclassic.${utility}_ore": "${utility} Ore",
+    "block.metallurgyclassic.${utility}_ore_${stone}": "${utility} Ore",
     "metallurgyclassic.container.furnace.${furnace}": "${furnace} Furnace",
     "metallurgyclassic.container.chest.${chest}": "${chest} Chest",
     "item.metallurgyclassic.${tool}_axe": "${tool} Axe",
@@ -71,7 +71,7 @@ def capitalize(string):
 
 for item, value in lines.items():
     for template_key, template_values in templates.items():
-        if template_key == 'ore':
+        if template_key in ['ore', 'utility']:
             for stone_type in stones:
                 key = "${" + template_key + "}"
                 stone_key = "${stone}"
