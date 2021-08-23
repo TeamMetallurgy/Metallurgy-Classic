@@ -47,7 +47,7 @@ furnaces = ['copper', 'bronze', 'iron', 'steel']
 chests = ['brass', 'silver', 'gold', 'electrum', 'platinum']
 utilities = ['sulfur', 'phosphorite', 'saltpeter', 'magnesium', 'bitumen', 'potash']
 metals = ['copper', 'silver', 'platinum', 'ignatius', 'shadow_iron', 'midasium', 'vyroxeres', 'ceruclase', 'kalendrite', 'vulcanite', 'sanguinite', 'prometheum', 'deep_iron', 'oureclase', 'astral_silver', 'carmot', 'mithril', 'orichalcum', 'adamantine', 'atlarus', 'eximite']
-catalysts = ['tin', 'manganese', 'zinc', 'lemurite', 'alduorite', 'infuscolium', 'rubracium', 'meutoite']
+catalysts = ['tin', 'manganese', 'zinc', 'lemurite', 'adluorite', 'infuscolium', 'rubracium', 'meutoite']
 alloys = ['bronze', 'hepatizon', 'damascus_steel', 'angmallen', 'steel', 'brass', 'electrum', 'shadow_steel', 'inolashite', 'amordrine', 'black_steel', 'quicksilver', 'haderoth', 'celenegil', 'tartarite', 'desichalkos']
 
 ores = metals + catalysts
