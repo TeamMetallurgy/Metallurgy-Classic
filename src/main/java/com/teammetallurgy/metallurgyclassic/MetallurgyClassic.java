@@ -7,16 +7,10 @@ import com.teammetallurgy.metallurgyclassic.machines.chest.MetalChestComponent;
 import com.teammetallurgy.metallurgyclassic.machines.crusher.CrusherComponent;
 import com.teammetallurgy.metallurgyclassic.machines.furnace.MetalFurnaceComponent;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
-import net.minecraft.block.Block;
-import net.minecraft.block.Material;
+import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -26,7 +20,7 @@ public class MetallurgyClassic implements ModInitializer {
 	public static final EntityType<CustomizableTntEntity> TNT_ENTITY_TYPE = Registry.register(
 			Registry.ENTITY_TYPE,
 			new Identifier("metallurgyclassic", "metal_tnt"),
-			FabricEntityTypeBuilder.<CustomizableTntEntity>create(SpawnGroup.MISC, CustomizableTntEntity::new).build()
+			FabricEntityTypeBuilder.<CustomizableTntEntity>create(SpawnGroup.MISC, CustomizableTntEntity::new).dimensions(EntityDimensions.changing(0.98F, 0.7F)).build()
 	);
 
 	@Override

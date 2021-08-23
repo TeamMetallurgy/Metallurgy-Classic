@@ -93,7 +93,7 @@ public class CustomizableTntEntity extends Entity {
     }
 
     private void explode() {
-        this.world.createExplosion(this, this.getX(), this.getBodyY(0.1625D), this.getZ(), this.tntSettings.power, false, this.tntSettings.destructionType);
+        this.world.createExplosion(this, this.getX(), this.getBodyY(0.0625D), this.getZ(), this.tntSettings.power, false, Explosion.DestructionType.BREAK);
     }
 
     protected void writeCustomDataToNbt(NbtCompound nbt) {
