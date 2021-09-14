@@ -315,7 +315,7 @@ public class MetalRegistry {
                 Item axe = new MetallurgyAxeItem(new MetallurgyToolMaterial(config.toolDurability, config.toolSpeed, config.toolDamage, config.pickLevel, config.enchantability, ingot), config.toolDamage, config.toolSpeed, new Item.Settings().group(ItemGroup.TOOLS));
                 Item pickaxe = new MetallurgyPickaxeItem(new MetallurgyToolMaterial(config.toolDurability, config.toolSpeed, config.toolDamage, config.pickLevel, config.enchantability, ingot), config.toolDamage, config.toolSpeed, new Item.Settings().group(ItemGroup.TOOLS));
                 Item sword = new SwordItem(new MetallurgyToolMaterial(config.toolDurability, config.toolSpeed, config.toolDamage, config.pickLevel, config.enchantability, ingot), config.toolDamage, config.toolSpeed, new Item.Settings().group(ItemGroup.COMBAT));
-                var armorMaterial = new MetallurgyArmorMaterial(config.name, config.armorDurability, new int[]{config.helmetArmor, config.chestplateArmor, config.leggingsArmor, config.bootsArmor}, config.enchantability, 0f, ingot);
+                var armorMaterial = new MetallurgyArmorMaterial(config.name.replace("_", ""), config.armorDurability, new int[]{config.helmetArmor, config.chestplateArmor, config.leggingsArmor, config.bootsArmor}, config.enchantability, 0f, ingot);
                 Item helmet = new ArmorItem(armorMaterial, EquipmentSlot.HEAD, new Item.Settings().group(ItemGroup.COMBAT));
                 Item chestplate = new ArmorItem(armorMaterial, EquipmentSlot.CHEST, new Item.Settings().group(ItemGroup.COMBAT));
                 Item leggings = new ArmorItem(armorMaterial, EquipmentSlot.LEGS, new Item.Settings().group(ItemGroup.COMBAT));
