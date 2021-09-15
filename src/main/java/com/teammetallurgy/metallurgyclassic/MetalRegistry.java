@@ -8,6 +8,7 @@ import com.teammetallurgy.metallurgyclassic.tools.MetallurgyPickaxeItem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
@@ -15,8 +16,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.block.OreBlock;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
@@ -315,7 +320,7 @@ public class MetalRegistry {
                 Item axe = new MetallurgyAxeItem(new MetallurgyToolMaterial(config.toolDurability, config.toolSpeed, config.toolDamage, config.pickLevel, config.enchantability, ingot), config.toolDamage, config.toolSpeed, new Item.Settings().group(ItemGroup.TOOLS));
                 Item pickaxe = new MetallurgyPickaxeItem(new MetallurgyToolMaterial(config.toolDurability, config.toolSpeed, config.toolDamage, config.pickLevel, config.enchantability, ingot), config.toolDamage, config.toolSpeed, new Item.Settings().group(ItemGroup.TOOLS));
                 Item sword = new SwordItem(new MetallurgyToolMaterial(config.toolDurability, config.toolSpeed, config.toolDamage, config.pickLevel, config.enchantability, ingot), config.toolDamage, config.toolSpeed, new Item.Settings().group(ItemGroup.COMBAT));
-                var armorMaterial = new MetallurgyArmorMaterial(config.name, config.armorDurability, new int[]{config.helmetArmor, config.chestplateArmor, config.leggingsArmor, config.bootsArmor}, config.enchantability, 0f, ingot);
+                var armorMaterial = new MetallurgyArmorMaterial(config.name.replace("_", ""), config.armorDurability, new int[]{config.helmetArmor, config.chestplateArmor, config.leggingsArmor, config.bootsArmor}, config.enchantability, 0f, ingot);
                 Item helmet = new ArmorItem(armorMaterial, EquipmentSlot.HEAD, new Item.Settings().group(ItemGroup.COMBAT));
                 Item chestplate = new ArmorItem(armorMaterial, EquipmentSlot.CHEST, new Item.Settings().group(ItemGroup.COMBAT));
                 Item leggings = new ArmorItem(armorMaterial, EquipmentSlot.LEGS, new Item.Settings().group(ItemGroup.COMBAT));
@@ -364,5 +369,42 @@ public class MetalRegistry {
                 BlockRenderLayerMap.INSTANCE.putBlock(ore, RenderLayer.getCutoutMipped());
             });
         });
+    }
+
+    private BipedEntityModel<LivingEntity> armorModel;
+
+    public void fixArmorTextures() {
+        List<ArmorItem> items = new ArrayList<>();
+        registry.forEach((name, metal) -> {
+            if(!(name.equals("iron") || name.equals("gold"))) {
+                metal.items.values().forEach(item -> {
+                    if(item instanceof ArmorItem armor) {
+                        items.add(armor);
+                    }
+                });
+            }
+        });
+        ArmorItem[] array = new ArmorItem[items.size()];
+        ArmorRenderer.register(((matrices, vertexConsumers, stack, entity, slot, light, model) -> {
+            if (armorModel == null) {
+                armorModel = new BipedEntityModel<>(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(EntityModelLayers.PLAYER_OUTER_ARMOR));
+            }
+            if(stack.getItem() instanceof ArmorItem item) {
+                model.setAttributes(armorModel);
+                armorModel.setVisible(false);
+                armorModel.body.visible = slot == EquipmentSlot.CHEST;
+                armorModel.leftArm.visible = slot == EquipmentSlot.CHEST;
+                armorModel.rightArm.visible = slot == EquipmentSlot.CHEST;
+                armorModel.head.visible = slot == EquipmentSlot.HEAD;
+                armorModel.leftLeg.visible = slot == EquipmentSlot.LEGS || slot == EquipmentSlot.FEET;
+                armorModel.rightLeg.visible = slot == EquipmentSlot.LEGS || slot == EquipmentSlot.FEET;
+                if(slot == EquipmentSlot.LEGS) {
+                    ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, armorModel, MetallurgyClassic.id("textures/models/armor/" + item.getMaterial().getName() + "_layer_2.png"));
+                }
+                else {
+                    ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, armorModel, MetallurgyClassic.id("textures/models/armor/" + item.getMaterial().getName() + "_layer_1.png"));
+                }
+            }
+        }), items.toArray(array));
     }
 }

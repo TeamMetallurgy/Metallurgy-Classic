@@ -39,5 +39,7 @@ public class MetallurgyClassicClient implements ClientModInitializer {
         CrusherComponent.onInitializerClient();
 
         OreScannerKeybind.setup();
+
+        MetalRegistry.instance().fixArmorTextures();
     }
 }
